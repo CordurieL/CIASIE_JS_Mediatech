@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Projet Médiathèque</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/boostrap.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container px-4 px-lg-5">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item me-4">
+              <!-- onclick trigger filter function of collection class -->
+              <a id="filterAll" class="nav-link active" href="#!">All</a>
+            </li>
+            <li class="nav-item me-4">
+              <a id="filterAlbums" class="nav-link" href="#!">
+                <i class="bi bi-music-note-beamed me-1"></i>Albums</a
+              >
+            </li>
+            <li class="nav-item me-4">
+              <a id="filterGames" class="nav-link" href="#!"
+                ><i class="bi bi-controller me-1"></i>Games</a
+              >
+            </li>
+            <li class="nav-item me-4">
+              <a id="filterMovies" class="nav-link" href="#!"
+                ><i class="bi bi-film me-1"></i>Movies</a
+              >
+            </li>
+            <li class="nav-item me-4 my-auto">
+              <select
+                name="sortType"
+                id="sortType"
+                class="form-select form-select-sm bg-dark text-white my-auto rounded-2"
+              >
+                <option value="alphabetical">Alphabetical</option>
+                <option value="analphabetic">Analphabetic</option>
+                <option value="oldestToLatest">Oldest To Latest</option>
+                <option value="latestToOldest">Latest To Oldest</option>
+              </select>
+            </li>
+          </ul>
+          <button id="addMedia" class="btn btn-outline-light" type="submit">
+            <i class="bi-plus me-1"></i>
+            Add Media
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Section-->
+    <section class="py-2">
+      <div class="container px-4 px-lg-5 mt-3">
+        <div
+          id="mediaContainer"
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+        >
+          <!-- Start of Item -->
+          <div data-type="game" class="mediaItem col mb-3 mh-100">
+            <div class="card h-100">
+              <!-- Item image-->
+              <img
+                class="card-img-top"
+                src="https://imgs.search.brave.com/PUxoRQiGPLY2748ZRFkEBhUO849GL1_9JcgSbIIUsh0/rs:fit:750:1200:1/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDU1NzMx/MzQuanBn"
+                alt="..."
+              />
+              <!-- Item details-->
+              <div class="card-body p-3">
+                <!-- Item name-->
+                <h5 class="text-center fw-bolder">
+                  <i class="bi bi-controller me-2"></i>Fancy Item
+                </h5>
+                <!-- Release date -->
+                <p class="text-center text-muted small">
+                  Release date: 1 Jan 2021
+                </p>
+                <!-- Item description-->
+                <p class="cardDescr mb-0 small">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Voluptates, quos. Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Voluptates, quos. Lorem ipsum dolor sit amet
+                  consectetur adipisicing elit. Voluptates, quos.
+                </p>
+              </div>
+              <!-- Separator -->
+              <hr class="my-3 mx-2" />
+              <!-- Item reviews-->
+              <div
+                class="mb-3 border-top-0 d-flex justify-content-center small text-warning"
+                title="3.75/5"
+              >
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-half"></div>
+                <div class="bi-star"></div>
+              </div>
+              <!-- Item actions-->
+              <div
+                class="card-footer p-3 pt-0 border-top-0 bg-transparent d-flex justify-content-between"
+              >
+                <div class="text-center w-50">
+                  <a class="btn btn-outline-dark mt-auto" href="#">Edit</a>
+                </div>
+                <div class="editButton text-center w-50">
+                  <a class="removeButton btn btn-outline-dark mt-auto" href="#"
+                    >Remove</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of Item -->
+        </div>
+      </div>
+    </section>
+    <!-- Modal -->
+    <div id="addMediaModal">
+      <!-- Modal content -->
+      <div id="addMediaModalContent">
+        <span class="close">&times;</span>
+        <span><h3>Add media form</h3></span><br />
+        <!-- Media type -->
+        <span><h4>General Information</h4></span>
+        <form id="formAddMedia">
+          <label for="mediaType">Type : </label>
+          <select name="mediaType" id="mediaType">
+            <option value="album">Album</option>
+            <option value="game">Game</option>
+            <option value="movie">Movie</option></select
+          ><br /><br />
+          <!-- Title -->
+          <label for="mediaTitle">Title : </label>
+          <input
+            type="text"
+            name="mediaTitle"
+            id="mediaTitle"
+            placeholder="Title"
+          /><br /><br />
+          <!-- Release date -->
+          <label for="mediaReleaseDate">Release Date : </label>
+          <input
+            type="date"
+            name="mediaReleaseDate"
+            id="mediaReleaseDate"
+          /><br /><br />
+          <!-- Rating text and stars on same height -->
+          <div class="rate ps-0 d-flex flex-row-reverse align-items-center">
+            <input type="radio" id="star5" name="mediaRating" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="mediaRating" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="mediaRating" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="mediaRating" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="mediaRating" value="1" />
+            <label for="star1" title="text">1 star</label>
+            <span class="me-3 my-auto">Rating : </span>
+          </div>
+          <br /><br /><br />
+          <!-- Image -->
+          <label for="mediaImageLink">Image : </label>
+          <input
+            type="text"
+            name="mediaImageLink"
+            id="mediaImageLink"
+            placeholder="example.com"
+          /><br /><br />
+
+          <span><h4>Specific Information</h4></span>
+          <!-- Specific for albums -->
+          <div id="specificInfoAlbums">
+            <!-- Band -->
+            <label for="albumBand">Band : </label>
+            <input type="text" name="albumBand" id="albumBand" /><br /><br />
+            <!-- Number of tracks -->
+            <label for="albumNbTracks">Number of tracks : </label>
+            <input
+              type="number"
+              name="albumNbTracks"
+              id="albumNbTracks"
+              min="1"
+            /><br /><br />
+          </div>
+
+          <!-- Specific for games -->
+          <div id="specificInfoGames">
+            <!-- Studio -->
+            <label for="gameStudio">Studio : </label>
+            <input type="text" name="gameStudio" id="gameStudio" /><br /><br />
+            <!-- Number of players -->
+            <label for="gameNbPlayers">Number of players : </label>
+            <input
+              type="number"
+              name="gameNbPlayers"
+              id="gameNbPlayers"
+              min="1"
+            /><br /><br />
+            <!-- Plot -->
+            <p><label for="gamePlot">Plot : </label></p>
+            <textarea
+              name="gamePlot"
+              id="gamePlot"
+              cols="30"
+              rows="5"
+            ></textarea>
+          </div>
+
+          <!-- Specific for movies -->
+          <div id="specificInfoMovies">
+            <!-- Director -->
+            <label for="movieDirector">Director : </label>
+            <input
+              type="text"
+              name="movieDirector"
+              id="movieDirector"
+            /><br /><br />
+            <!-- Lead actor -->
+            <label for="movieLeadActor">Lead actor : </label>
+            <input
+              type="text"
+              name="movieLeadActor"
+              id="movieLeadActor"
+            /><br /><br />
+            <!-- Duration -->
+            <label for="movieDuration">Duration : </label>
+            <input
+              type="number"
+              name="movieDuration"
+              id="movieDuration"
+              min="1"
+            /><br /><br />
+            <!-- Plot -->
+            <p><label for="moviePlot">Plot : </label></p>
+            <textarea
+              name="moviePlot"
+              id="moviePlot"
+              cols="30"
+              rows="5"
+            ></textarea>
+          </div>
+        </form>
+        <!-- Button AddFromApi -->
+        <br />
+        <button id="addMovieFromApi" class="btn btn-outline-dark" type="submit">
+          <i class="me-1"></i>
+          Add Movie from API
+        </button>
+        <!-- Buttons Add/Cancel -->
+        <br />
+        <button id="cancelAddMedia" class="btn btn-outline-dark" type="submit">
+          <i class="me-1"></i>
+          Cancel
+        </button>
+        <button id="submitMedia" class="btn btn-outline-dark" type="submit">
+          <i class="me-1"></i>
+          Add
+        </button>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div id="editMediaModal">
+      <!-- Modal content -->
+      <div id="editMediaModalContent">
+        <span class="close">&times;</span>
+        <span><h3>Edit media form</h3></span><br /><br />
+        <!-- Media type -->
+        <span><h4>General Information</h4></span><br />
+        <form id="formEditMedia">
+          <!-- Title -->
+          <label for="editMediaTitle">Title : </label>
+          <input
+            type="text"
+            name="editMediaTitle"
+            id="editMediaTitle"
+          /><br /><br />
+          <!-- Release date -->
+          <label for="editMediaReleaseDate">Release Date : </label>
+          <input
+            type="date"
+            name="editMediaReleaseDate"
+            id="editMediaReleaseDate"
+          /><br /><br />
+          <!-- Rating -->
+          <div class="rate ps-0 d-flex flex-row-reverse align-items-center">
+            <input
+              type="radio"
+              id="editStar5"
+              name="editMediaRating"
+              value="5"
+            />
+            <label for="editStar5" title="text">5 stars</label>
+            <input
+              type="radio"
+              id="editStar4"
+              name="editMediaRating"
+              value="4"
+            />
+            <label for="editStar4" title="text">4 stars</label>
+            <input
+              type="radio"
+              id="editStar3"
+              name="editMediaRating"
+              value="3"
+            />
+            <label for="editStar3" title="text">3 stars</label>
+            <input
+              type="radio"
+              id="editStar2"
+              name="editMediaRating"
+              value="2"
+            />
+            <label for="editStar2" title="text">2 stars</label>
+            <input
+              type="radio"
+              id="editStar1"
+              name="editMediaRating"
+              value="1"
+            />
+            <label for="editStar1" title="text">1 star</label>
+            <span class="me-3 my-auto">Rating : </span>
+          </div>
+          <br /><br /><br />
+          <!-- Image -->
+          <label for="editMediaImageLink">Image : </label>
+          <input
+            type="text"
+            name="editMediaImageLink"
+            id="editMediaImageLink"
+            placeholder="example.com"
+          /><br /><br />
+
+          <span><h4>Specific Information</h4></span>
+          <!-- Specific for albums -->
+          <div id="editSpecificInfoAlbums">
+            <!-- Band -->
+            <label for="editAlbumBand">Band : </label>
+            <input
+              type="text"
+              name="editAlbumBand"
+              id="editAlbumBand"
+            /><br /><br />
+            <!-- Number of tracks -->
+            <label for="editAlbumNbTracks">Number of tracks : </label>
+            <input
+              type="number"
+              name="editAlbumNbTracks"
+              id="editAlbumNbTracks"
+              min="1"
+            /><br /><br />
+          </div>
+
+          <!-- Specific for games -->
+          <div id="editSpecificInfoGames">
+            <!-- Studio -->
+            <label for="editGameStudio">Studio : </label>
+            <input
+              type="text"
+              name="editGameStudio"
+              id="editGameStudio"
+            /><br /><br />
+            <!-- Number of players -->
+            <label for="editGameNbPlayers">Number of players : </label>
+            <input
+              type="number"
+              name="editGameNbPlayers"
+              id="editGameNbPlayers"
+              min="1"
+            /><br /><br />
+            <!-- Plot -->
+            <p><label for="editGamePlot">Plot : </label></p>
+            <textarea
+              name="editGamePlot"
+              id="editGamePlot"
+              cols="30"
+              rows="5"
+            ></textarea>
+          </div>
+
+          <!-- Specific for movies -->
+          <div id="editSpecificInfoMovies">
+            <!-- Director -->
+            <label for="editMovieDirector">Director : </label>
+            <input
+              type="text"
+              name="editMovieDirector"
+              id="editMovieDirector"
+            /><br /><br />
+            <!-- Lead actor -->
+            <label for="editMovieLeadActor">Lead actor : </label>
+            <input
+              type="text"
+              name="editMovieLeadActor"
+              id="editMovieLeadActor"
+            /><br /><br />
+            <!-- Duration -->
+            <label for="editMovieDuration">Duration : </label>
+            <input
+              type="number"
+              name="editMovieDuration"
+              id="editMovieDuration"
+              min="1"
+            /><br /><br />
+            <!-- Plot -->
+            <p><label for="editMoviePlot">Plot : </label></p>
+            <textarea
+              name="editMoviePlot"
+              id="editMoviePlot"
+              cols="30"
+              rows="5"
+            ></textarea>
+          </div>
+        </form>
+        <!-- Buttons Add/Cancel -->
+        <br /><br />
+        <button id="cancelEditMedia" class="btn btn-outline-dark" type="submit">
+          <i class="me-1"></i>
+          Cancel
+        </button>
+        <button
+          data-type=""
+          data-id=""
+          id="submitEdit"
+          class="btn btn-outline-dark"
+          type="submit"
+        >
+          <i class="me-1"></i>
+          Edit
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="addMovieFromApiModal">
+      <!-- Modal content -->
+      <div id="addMovieFromApiModalContent">
+        <span class="close">&times;</span>
+        <span><h3>Add Movie from API</h3></span><br /><br />
+
+        <form id="searchBarForm">
+          <input
+            type="text"
+            name="searchBar"
+            id="searchBar"
+            placeholder="Example : Bullet Train"
+          />
+        </form>
+        <input type="submit" value="Search" id="searchBarSubmit" />
+        <p id="textError"></p>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
